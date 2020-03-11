@@ -89,15 +89,17 @@ $ ssh MACHINE_WHERE_DOCKER_IS_RUNNING -L 8081:localhost:8082
 This is a single command to run the image on a remote system with the GPU enabled and using the specified port:
 
 ```
-COLAB_PORT=8082 ssh REMOTE_HOST_NAME -L 8081:localhost:8082 \
+( COLAB_PORT=8082; \
+  ssh orspc -t -L $COLAB_PORT:localhost:$COLAB_PORT \
   docker run \
   --gpus=all \
   -p $COLAB_PORT:$COLAB_PORT \
   -v "$PWD":/opt/colab \
   -v $HOME/.cache/torch:/root/.cache/torch \
-  --env -e COLAB_PORT=$COLAB_PORT \
+  --env COLAB_PORT=$COLAB_PORT \
   -it --rm \
-  sorokine/docker-colab-local:latest
+  sorokine/docker-colab-local:10.1 \
+)
 ```
 
 ## Notes

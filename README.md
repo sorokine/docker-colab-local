@@ -84,13 +84,13 @@ Colab notebooks expect the port in connection and on the server to be the same. 
 $ ssh MACHINE_WHERE_DOCKER_IS_RUNNING -L 8081:localhost:8082
 ```
 
-## Running on Remote System 
+## Running on a Remote System 
 
 This is a single command to run the image on a remote system with the GPU enabled and using the specified port:
 
 ```
 ( COLAB_PORT=8082; \
-  ssh orspc -t -L $COLAB_PORT:localhost:$COLAB_PORT \
+  ssh REMOTE_HOST_NAME -t -L $COLAB_PORT:localhost:$COLAB_PORT \
   docker run \
   --gpus=all \
   -p $COLAB_PORT:$COLAB_PORT \
